@@ -35,6 +35,7 @@
     "ember-cli-update": "0.6.4",
     "ember-data": "~2.14.9",
     "ember-data-has-many-query": "0.1.1",
+    "ember-engines": "^0.5.8",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-material-design-icons-shim": "0.1.9",
