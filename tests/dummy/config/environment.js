@@ -3,7 +3,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'ember-pipeline-builder-engine',
+    modulePrefix: 'dummy',
     environment,
     rootURL: '/',
     locationType: 'auto',

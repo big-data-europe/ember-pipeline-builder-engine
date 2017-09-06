@@ -1,5 +1,5 @@
 {
-  "name": "pipeline-builder",
+  "name": "ember-pipeline-builder-engine",
   "dependencies": {
     "ember-qunit-notifications": "0.1.0",
     "materialize": "0.97.6"

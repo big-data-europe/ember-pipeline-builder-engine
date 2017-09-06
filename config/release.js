@@ -2,7 +2,7 @@ console.log("loading release.js");
 
 // config/release.js
 var path = require('path');
-var fs = require('fs')
+var fs = require('fs');
 var archiver = require('archiver');
 var BuildTask = require('ember-cli/lib/tasks/build');
 
