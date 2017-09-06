@@ -41,7 +41,7 @@
     "ember-materialize-shim": "0.2.3",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.14.1",
-    "loader.js": "^4.2.3",
+    "loader.js": "^4.2.3"
   },
   "private": true,
   "dependencies": {
