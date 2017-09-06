@@ -1,6 +1,6 @@
 {
   "name": "ember-pipeline-builder-engine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Application to build and export Big Data pipelines",
   "directories": {
     "doc": "doc",
