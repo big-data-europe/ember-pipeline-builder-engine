@@ -60,5 +60,8 @@
     "ember-radio-button": "1.0.7",
     "ember-sortable": "1.8.1",
     "ember-truth-helpers": "1.2.0"
-  }
+  },
+  "keywords": [
+    "ember-addon"
+  ]
 }
