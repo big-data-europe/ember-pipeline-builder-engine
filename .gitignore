@@ -26,3 +26,4 @@ package.json.ember-try
 
 dist.zip
 .idea
+package-lock.json
