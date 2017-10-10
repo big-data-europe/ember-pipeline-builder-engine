@@ -10,9 +10,9 @@
 	       Workflow description
       {{/md-card-content}}
       {{#md-card-action}}
-	<a class="disabled">Edit</a>
-	<a class="disabled">Export</a>
-	<a class="disabled">Delete</a>
+      	<a class="disabled">Edit</a>
+      	<a class="disabled">Export</a>
+      	<a class="disabled">Delete</a>
       {{/md-card-action}}
     {{/md-card}}
     </span>
@@ -21,8 +21,16 @@
       {{#md-card}}
         {{#md-card-content}}
           <span class="card-title black-text">
-	    {{inline-edit-model model=pipeline attr='title'}}
-	  </span> {{inline-edit-model model=pipeline attr='description' field='textarea'}}
+      	    {{inline-edit-model model=pipeline attr='title'}}
+      	  </span>
+          <div class="row">
+            <label>Description</label>
+            {{inline-edit-model model=pipeline attr='description' field='textarea'}}
+          </div>
+          <div class="row">
+            <label>Docker Compose File</label>
+            {{docker-compose-search dockerFile=pipeline.dockerFile}}
+          </div>
         {{/md-card-content}}
         {{#md-card-action}}
           {{#link-to 'pipelines.steps' pipeline}}Edit{{/link-to}}

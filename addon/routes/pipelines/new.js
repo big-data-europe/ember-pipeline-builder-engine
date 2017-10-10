@@ -3,7 +3,7 @@ import Ember from 'ember';
 const PipelinesNewRoute = Ember.Route.extend({
   store: Ember.inject.service('store'),
   model() {
-    return this.get('store').createRecord('pipeline', {});
+    return this.get('store').createRecord('pipeline', { dockerFile: null});
   },
   actions: {
     save() {
