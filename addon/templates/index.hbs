@@ -11,6 +11,7 @@
       {{/md-card-content}}
       {{#md-card-action}}
       	<a class="disabled">Edit</a>
+        <a class="disabled">Edit docker compose file in Stack Builder</a>
       	<a class="disabled">Export</a>
       	<a class="disabled">Delete</a>
       {{/md-card-action}}
@@ -29,11 +30,12 @@
           </div>
           <div class="row">
             <label>Docker Compose File</label>
-            {{pipeline.dockerFile.title}}
+            {{docker-compose-search model=pipeline}}
           </div>
         {{/md-card-content}}
         {{#md-card-action}}
           {{#link-to 'steps' pipeline}}Edit{{/link-to}}
+          {{link-to-external "Edit docker compose file in Stack Builder" 'stack' pipeline.dockerFile.id class='a'}}
           <a {{action 'export' pipeline}}>Export</a>
           <a {{action 'delete' pipeline}}>Delete</a>
         {{/md-card-action}}
