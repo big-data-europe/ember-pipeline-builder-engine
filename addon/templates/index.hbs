@@ -29,11 +29,11 @@
           </div>
           <div class="row">
             <label>Docker Compose File</label>
-            {{docker-compose-search model=pipeline}}
+            {{pipeline.dockerFile.title}}
           </div>
         {{/md-card-content}}
         {{#md-card-action}}
-          {{#link-to 'pipelines.steps' pipeline}}Edit{{/link-to}}
+          {{#link-to 'steps' pipeline}}Edit{{/link-to}}
           <a {{action 'export' pipeline}}>Export</a>
           <a {{action 'delete' pipeline}}>Delete</a>
         {{/md-card-action}}

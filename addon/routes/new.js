@@ -7,13 +7,13 @@ const PipelinesNewRoute = Ember.Route.extend({
   },
   actions: {
     save() {
-      return this.modelFor('pipelines.new').save().then(pipeline => {
-        return this.transitionTo('pipelines.steps', pipeline);
+      return this.modelFor('new').save().then(pipeline => {
+        return this.transitionTo('steps', pipeline);
       });
     },
     cancel() {
-      this.modelFor('pipelines.new').rollbackAttributes();
-      return this.transitionTo('pipelines');
+      this.modelFor('new').rollbackAttributes();
+      return this.transitionTo('index');
     }
   }
 });

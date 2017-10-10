@@ -41,7 +41,7 @@ const PipelinesIndexRoute = Ember.Route.extend({
             // for which they were created. These URLs will no longer resolve as the data backing
             // the URL has been freed."
             return window.navigator.msSaveBlob(blob, filename);
-          } 
+          }
           else {
             const URL = window.URL || window.webkitURL;
             const downloadUrl = URL.createObjectURL(blob);
@@ -64,7 +64,7 @@ const PipelinesIndexRoute = Ember.Route.extend({
       });
     }, // cleanup
     newPipeline() {
-      return this.transitionTo('pipelines.new');
+      return this.transitionTo('new');
     }
   }
 });
