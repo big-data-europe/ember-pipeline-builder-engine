@@ -1,5 +1,5 @@
 import Ember from 'ember';
 
-const PipelinesStepsController = Ember.Controller.extend();
-
-export default PipelinesStepsController;
+export default Ember.Controller.extend({
+  classNames: ['pipeline-steps']
+});
