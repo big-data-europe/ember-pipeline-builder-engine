@@ -23,7 +23,7 @@ export default Ember.Component.extend({
     return yield this.filterComposeFiles(term);
   }).on('init').restartable(),
 
-  filterComposeFiles: function(searchValue){
+  filterComposeFiles: function(searchValue) {
     var params = {
       sort: 'title'
     };
@@ -44,7 +44,10 @@ export default Ember.Component.extend({
     saveNewDockerFile: function(newFile) {
       var model = this.get('model');
       model.set('dockerFile', newFile);
-      model.save();
+
+      if (this.get('new') !== true) {
+        model.save();
+      }
     }
   }
 });
