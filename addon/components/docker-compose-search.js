@@ -39,5 +39,12 @@ export default Ember.Component.extend({
     }
 
     return this.get('store').query('docker-compose', params);
+  },
+  actions: {
+    saveNewDockerFile: function(newFile) {
+      var model = this.get('model');
+      model.set('dockerFile', newFile);
+      model.save();
+    }
   }
 });

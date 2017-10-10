@@ -2,8 +2,8 @@
   allowClear=false
   options=dockerComposeList.lastSuccessful.value
   search=(perform dockerComposeList)
-  selected=dockerFile
-  onchange=(action (mut dockerFile))
+  selected=model.dockerFile
+  onchange=(action "saveNewDockerFile")
   as |option|
 }}
   {{option.title}}
