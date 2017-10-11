@@ -6,5 +6,5 @@
 {{inline-edit-model model=model attr='description' field='textarea'}}
 <h5>Docker Compose File</h5>
 {{docker-compose-search model=model}}
-{{link-to-external "Edit docker compose file in Stack Builder" 'stack' pipeline.dockerFile.id class='btn'}}
+{{link-to-external "Edit docker compose file in Stack Builder" 'stack' model.dockerFile.id class='btn'}}
 {{outlet}}
