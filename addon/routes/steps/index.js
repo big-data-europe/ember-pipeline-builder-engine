@@ -30,11 +30,16 @@ const PipelinesStepsIndexRoute = Ember.Route.extend({
   },
   actions: {
     cancel(step) {
+      if(step.get('oldService.id') != step.get('service.id')){
+        step.linkToService(step.get('oldService'));
+      }
+      step.set('oldService', null);
       step.set('editing', false);
       step.rollbackAttributes();
     },
     save(step) {
       step.set('editing', false);
+      step.set('oldService', null);
       step.save();
       this.changedCode(step, step.get('code'));
     },

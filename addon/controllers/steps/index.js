@@ -19,8 +19,13 @@ const PipelinesStepsIndexController = Ember.Controller.extend({
     toggleCollapse(step){
       step.toggleProperty('collapsed');
     },
-    setSelectedService(step, service) {
-      return step.linkToService(service);
+    setSelectedService(step, newService) {
+      return step.get('service').then(oldService => {
+        if(!step.get('oldService')) {
+          step.set('oldService', oldService);
+        }
+        return step.linkToService(newService);
+      });
     },
     reorderSteps(steps, draggedStep) {
       const _this = this;
