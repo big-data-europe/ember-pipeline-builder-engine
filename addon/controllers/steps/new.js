@@ -63,7 +63,7 @@ export default Ember.Controller.extend({
         return null;
       }
 
-      return step.linkNewStepToService(service).then(function () {
+      return step.linkToService(service).then(function () {
         return _this.transitionToRoute('steps', step.get('pipeline'));
       })
 

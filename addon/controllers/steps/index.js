@@ -25,7 +25,7 @@ const PipelinesStepsIndexController = Ember.Controller.extend({
     reorderSteps(steps, draggedStep) {
       const _this = this;
       this.set('reorderingSteps', true);
-      draggedStep.removeLinksForStep().then(res1 => {
+      return draggedStep.removeLinksForStep().then(res1 => {
         let promises = [];
         steps.forEach((step, i) => {
           step.set('order', i);
