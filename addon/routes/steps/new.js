@@ -2,22 +2,36 @@ import Ember from 'ember';
 
 const PipelinesStepsNewRoute = Ember.Route.extend({
   store: Ember.inject.service('store'),
-  model() {
+  beforeModel() {
+    const _this = this;
     const pipeline = this.modelFor('steps');
-    return this.get('store').createRecord('step', {
-        order: pipeline.get('steps.length'),
-        pipeline
+    return pipeline.get('dockerFile').then(function(dockerFile) {
+      return dockerFile.get('dockerServices').then(services => {
+        let unlinked = services.filter(service => {
+          return service.get('step.id') == null;
+        });
+        if(unlinked.get('length') === 0)
+        {
+          _this.transitionTo('steps');
+        }
+      });
     });
   },
-  actions: {
-    save() {
-      return this.modelFor('steps.new').save().then(step => {
-        return this.transitionTo('steps', step.get('pipeline'));
+  model() {
+    let _this = this;
+    const pipeline = this.modelFor('steps');
+    return pipeline.get('steps').then(function(steps){
+      return _this.get('store').createRecord('step', {
+        order: steps.get('length'),
+        pipeline
       });
-    },
-    cancel() {
-      this.modelFor('steps.new').rollbackAttributes();
-      return this.transitionTo('steps', this.modelFor('steps'));
+    });
+  },
+
+  resetController(controller, isExiting, transition){
+    if(isExiting)
+    {
+      controller.set('selectedService', null);
     }
   }
 });

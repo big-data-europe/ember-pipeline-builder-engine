@@ -1,10 +1,10 @@
 <h1>
-  {{inline-edit-model model=model attr='title'}}
+  {{model.title}}
 </h1>
 
 <h5> Description</h5>
-{{inline-edit-model model=model attr='description' field='textarea'}}
+<div class="text long">{{model.description}}</div>
 <h5>Docker Compose File</h5>
-{{docker-compose-search model=model}}
-{{link-to-external "Edit docker compose file in Stack Builder" 'stack' model.dockerFile.id class='btn'}}
+<div class="text">{{model.dockerFile.title}}</div>
+{{link-to-external "Edit docker compose file in Stack Builder" 'stack' model.dockerFile.id class='btn edit-drc'}}
 {{outlet}}

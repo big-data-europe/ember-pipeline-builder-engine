@@ -3,38 +3,126 @@
 <div class="row">
   <div class="col s12">
     {{#sortable-group tagName="div" onChange="reorderSteps" as |group|}}
-      {{#each sortedSteps as |step|}}
-	{{#sortable-item tagName="div" model=step group=group spacing=15}}
-	  {{#md-card}}
-	    <span class="dragable"><i class="material-icons">swap_vert</i></span>
-	    <span class="badge">
-	      {{inline-edit-model model=step attr='code'}}
-	    </span>
-	    {{#md-card-content}}
-	      <span class="card-title black-text">
-		{{inline-edit-model model=step attr='title'}}
-	      </span>
-	      {{inline-edit-model model=step attr='description' field='textarea'}}
-	    {{/md-card-content}}
-	    {{#md-card-action}}
-	      <a {{action 'delete' step}}>Delete</a>
-	    {{/md-card-action}}
-	  {{/md-card}}
-	{{/sortable-item}}
+      {{#each (await sortedSteps) as |step|}}
+        {{#sortable-item tagName="div" model=step group=group spacing=15 handle=".draggable" class=(if step.collapsed "step-collapsed")}}
+          {{#md-card}}
+
+            {{#unless step.editing}}
+              <span class="badge">
+                {{step.code}}
+              </span>
+            {{/unless}}
+
+            <div class="row">
+              {{#if reorderingSteps}}
+                <span title="Steps are being reordered, please wait.">{{md-loader class="loading" mode="circular" size="small"}}</span>
+              {{else}}
+                <span class="draggable"><i class="material-icons">swap_vert</i></span>
+              {{/if}}
+              <span class="collapser" {{action "toggleCollapse" step}}>
+                {{#if step.collapsed}}
+                  <i class="material-icons" title="Expand">keyboard_arrow_down</i>
+                {{else}}
+                  <i class="material-icons" title="Collapse">keyboard_arrow_up</i>
+                {{/if}}
+              </span>
+            </div>
+
+            {{#if step.collapsed}}
+              {{#md-card-content}}
+                <div class="row"><label>Title:</label>  <span>{{step.title}}</span></div>
+                <div class="row"><label>Linked to service:</label>  <span>{{step.service.name}}</span></div>
+              {{/md-card-content}}
+            {{else}}
+
+              {{#md-card-content}}
+                <div class="row">
+                  <label>Title</label>
+                  {{#if step.editing}}
+                    <div class="editing">
+                      {{md-input value=step.title class="col s12"}}
+                    </div>
+                  {{else}}
+                    <div>
+                  <span class="card-title black-text">
+                    {{step.title}}
+                  </span>
+                    </div>
+                  {{/if}}
+                </div>
+                <div class="row">
+                  <label>Description</label>
+                  {{#if step.editing}}
+                    <div class="editing">
+                      {{textarea value=step.description class="ember-text-area" rows="6"}}
+                    </div>
+                  {{else}}
+                    <div class="text long">
+                      {{step.description}}
+                    </div>
+                  {{/if}}
+                </div>
+                {{#if step.editing}}
+                  <div class="row editing">
+                    <label>Code</label>
+                    {{md-input value=step.code class="col s12"}}
+                  </div>
+                {{/if}}
+                <div class="row">
+                  <label>Linked to service</label>
+                  {{#if step.editing}}
+                    {{#power-select options=services selected=step.service onchange=(action "setSelectedService" step) as |service|}}
+                      {{service.name}}
+                    {{/power-select}}
+                  {{else}}
+                    <div class="text">
+                      {{step.service.name}}
+                    </div>
+                  {{/if}}
+                </div>
+              {{/md-card-content}}
+              {{#md-card-action}}
+                {{#if step.editing}}
+                  <a {{action 'save' step}}>Save details</a>
+                  <a {{action 'cancel' step}}>Cancel editing</a>
+                {{else}}
+                  <a {{action 'edit' step}}>Edit details</a>
+                {{/if}}
+                <a {{action 'delete' step}}>Delete</a>
+              {{/md-card-action}}
+
+            {{/if}}
+
+          {{/md-card}}
+        {{/sortable-item}}
       {{/each}}
     {{/sortable-group}}
 
-    <span {{action 'newStep'}}>
-    {{#md-card class="new-panel" title="Click to add new step"}}
-      {{md-badge text="step_code"}}
-      {{#md-card-content}}
-	Step description
-      {{/md-card-content}}
-      {{#md-card-action}}
-	<a class="disabled">Delete</a>
-      {{/md-card-action}}
-    {{/md-card}}
-    </span>
+    {{#if services}}
+      <span {{action 'newStep'}}>
+      {{#md-card class="new-panel"}}
+        {{md-badge text="step_code"}}
+        {{#md-card-content}}
+          <div class="row">
+            <label>Title</label>
+            <div>
+              <span class="card-title black-text">Click to add new step</span>
+            </div>
+          </div>
+           <div class="row">
+             <label>Description</label>
+             <div class="text">
+               Step description
+             </div>
+           </div>
+        {{/md-card-content}}
+        {{#md-card-action}}
+          <a class="disabled">Edit details</a>
+          <a class="disabled">Delete</a>
+        {{/md-card-action}}
+      {{/md-card}}
+      </span>
+    {{/if}}
 
   </div>
 </div>

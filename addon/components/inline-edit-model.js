@@ -6,10 +6,17 @@ const InlineEditModelComponent = Ember.Component.extend({
   value: Ember.computed('model', 'attr', function() {
     return this.get('model').get(this.get('attr'));
   }),
+  shouldSendAction: false,
   actions: {
     changeAttr(attribute, value) {
+      const _this = this;
       this.get('model').set(attribute, value);
-      return this.get('model').save();
+      return this.get('model').save().then(model => {
+        if(_this.get('shouldSendAction')){
+          _this.sendAction('changedAttribute', model, attribute, value);
+        }
+        return model;
+      });
     },
     rollback(attribute) {
       const oldValue = this.get('model').get(attribute);

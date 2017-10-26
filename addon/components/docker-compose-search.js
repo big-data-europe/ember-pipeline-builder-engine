@@ -25,7 +25,9 @@ export default Ember.Component.extend({
 
   filterComposeFiles: function(searchValue) {
     var params = {
-      sort: 'title'
+      sort: 'title',
+      // preloading relatedWorkflows, otherwise the filter doesn't work in line 43
+      include: 'related-workflows'
     };
     if (searchValue !== null) {
       params.filter = {
@@ -38,7 +40,11 @@ export default Ember.Component.extend({
       };
     }
 
-    return this.get('store').query('docker-compose', params);
+    return this.get('store').query('docker-compose', params).then(function(dockerComposes) {
+      return dockerComposes.filter(function(compose) {
+        return compose.get('relatedWorkflows.id') == null;
+      });
+    });
   },
   actions: {
     saveNewDockerFile: function(newFile) {

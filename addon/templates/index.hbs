@@ -5,13 +5,25 @@
   <div class="col s12">
 
     <span {{action 'newPipeline'}}>
-    {{#md-card class="new-panel" title="Click to add new workflow"}}
+    {{#md-card class="new-panel"}}
       {{#md-card-content}}
-	       Workflow description
+      <div class="row">
+        <label>Title</label>
+        <div>
+          <span class="card-title black-text">Click to add new workflow</span>
+        </div>
+      </div>
+         <div class="row">
+           <label>Description</label>
+           <div class="text">
+             Workflow description
+           </div>
+         </div>
       {{/md-card-content}}
       {{#md-card-action}}
-      	<a class="disabled">Edit</a>
-        <a class="disabled">Edit docker compose file in Stack Builder</a>
+      	<a class="disabled">Edit details</a>
+      	<a class="disabled">See steps</a>
+        <a class="disabled">See docker compose file</a>
       	<a class="disabled">Export</a>
       	<a class="disabled">Delete</a>
       {{/md-card-action}}
@@ -21,21 +33,43 @@
     {{#each model as |pipeline|}}
       {{#md-card}}
         {{#md-card-content}}
-          <span class="card-title black-text">
-      	    {{inline-edit-model model=pipeline attr='title'}}
-      	  </span>
+          <label>Title</label>
+          {{#if pipeline.editing}}
+            <div class="editing">
+              {{md-input value=pipeline.title class="col s12"}}
+            </div>
+          {{else}}
+            <div>
+              <span class="card-title black-text">{{pipeline.title}}</span>
+            </div>
+          {{/if}}
+          {{!-- {{inline-edit-model model=pipeline attr='title'}} --}}
           <div class="row">
             <label>Description</label>
-            {{inline-edit-model model=pipeline attr='description' field='textarea'}}
+            {{#if pipeline.editing}}
+              <div class="editing">
+                {{textarea value=pipeline.description class="ember-text-area" rows="6"}}
+              </div>
+            {{else}}
+              <div class="text long">
+                {{pipeline.description}}
+              </div>
+            {{/if}}
           </div>
           <div class="row">
             <label>Docker Compose File</label>
-            {{docker-compose-search model=pipeline}}
+            <div>{{pipeline.dockerFile.title}}</div>
           </div>
         {{/md-card-content}}
         {{#md-card-action}}
-          {{#link-to 'steps' pipeline}}Edit{{/link-to}}
-          {{link-to-external "Edit docker compose file in Stack Builder" 'stack' pipeline.dockerFile.id class='a'}}
+          {{#if pipeline.editing}}
+            <a {{action 'save' pipeline}}>Save details</a>
+            <a {{action 'cancel' pipeline}}>Cancel editing</a>
+          {{else}}
+            <a {{action 'edit' pipeline}}>Edit details</a>
+          {{/if}}
+          {{#link-to 'steps' pipeline}}See steps{{/link-to}}
+          {{link-to-external "See docker compose file" 'stack' pipeline.dockerFile.id class='a'}}
           <a {{action 'export' pipeline}}>Export</a>
           <a {{action 'delete' pipeline}}>Delete</a>
         {{/md-card-action}}

@@ -55,6 +55,7 @@
     "ember-cli-materialize": "0.22.0-beta.0",
     "ember-composability": "0.3.7",
     "ember-concurrency": "^0.8.10",
+    "ember-drag-drop": "0.4.6",
     "ember-inline-edit": "0.1.5",
     "ember-keyboard": "1.0.3",
     "ember-legacy-views": "0.2.0",
@@ -62,6 +63,7 @@
     "ember-new-computed": "1.0.3",
     "ember-radio-button": "1.0.7",
     "ember-power-select": "^1.9.9",
+    "ember-promise-helpers": "1.0.3",
     "ember-sortable": "1.8.1",
     "ember-truth-helpers": "1.2.0"
   },

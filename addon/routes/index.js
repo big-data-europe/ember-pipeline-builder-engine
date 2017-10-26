@@ -11,6 +11,17 @@ const PipelinesIndexRoute = Ember.Route.extend({
     });
   },
   actions: {
+    cancel(pipeline) {
+      pipeline.set('editing', false);
+      pipeline.rollbackAttributes();
+    },
+    save(pipeline) {
+      pipeline.set('editing', false);
+      pipeline.save();
+    },
+    edit(pipeline) {
+      pipeline.set('editing', true);
+    },
     delete(pipeline) {
       return pipeline.get('steps').then(steps => {
         steps.canonicalState.setEach('pipeline', null);
